@@ -3,9 +3,9 @@ import os
 import subprocess
 import sys
 from copy import deepcopy
+from genericpath import isdir
 
 import config
-from genericpath import isdir
 
 
 def install(package):
@@ -15,6 +15,7 @@ def install(package):
 try:
     import yaml
 except ImportError as e:
+    print("pyyaml not found - installing")
     install("pyyaml")
     import yaml
 
@@ -36,30 +37,13 @@ def runcmd(cmd):  # Wrapper to make running commands quicker
     return runcmd.returncode
 
 
-def installUpdater():
-    cwd = os.getcwd()
-    cronScript = f"""
-    #!/usr/bin/env bash
-    cd "{cwd}"
-    /usr/bin/git pull
-    /usr/local/bin/docker compose build
-    /usr/local/bin/docker compose up -d --force-recreate
-    """
-    with open("/etc/cron.daily/sentinel_docker_refresh.sh", "w") as f:
-        f.write(cronScript)
-    runcmd("chmod +x /etc/cron.daily/sentinel_docker_refresh.sh")
-
-
 for collector in config.collectors:
     args["table"] = None
-    if "table" in collector:  # If custom table is defined for collector
-        args["table"] = collector["table"]
-    else:
-        args["table"] = collector["name"]
     if os.path.isdir(f"./{collector['name']}"):  # Confirm collector exists
-        if collector["name"] == "ids":
-            print("Automated IDS deplotyment not yet available")
+        if "table" in collector:  # If custom table is defined for collector
+            args["table"] = collector["table"]
         else:
+            args["table"] = collector["name"]
             if collector["proto"] == "tcp":
                 ports = [f"{collector['port']}:514"]
             else:  # If syslog is UDP
@@ -96,5 +80,3 @@ if runcmd("docker compose up -d") == 0:
     print(f"Execution Successful - {len(services)} collectors running")
 else:
     print("Execution Failed")
-
-installUpdater()
