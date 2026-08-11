@@ -28,8 +28,11 @@ services = {}
 used_ports = {}  # host_port -> collector name, to catch clashes
 args = {
     "environment_name": config.envName,
-    "workspaceID": config.workspaceID,
-    "workspaceKey": config.workspaceKey,
+    "appId": config.appId, 
+    "appSecret": config.appSecret, 
+    "tenantId": config.tenantId, 
+    "dce": config.dce, 
+    "dcrId": config.dcrId,
     "table": None,
 }
 
