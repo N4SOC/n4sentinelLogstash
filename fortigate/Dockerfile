@@ -8,8 +8,6 @@ ARG dce
 ARG dcrId 
 ARG table
 
-USER root
-
 RUN logstash-plugin install microsoft-sentinel-log-analytics-logstash-output-plugin
 
 RUN rm -f /usr/share/logstash/pipeline/*
