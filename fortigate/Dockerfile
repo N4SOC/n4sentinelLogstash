@@ -13,7 +13,8 @@ USER root
 RUN logstash-plugin install microsoft-sentinel-log-analytics-logstash-output-plugin
 
 RUN rm -f /usr/share/logstash/pipeline/*
-RUN rm -f /usr/share/logstash/config/*
+RUN rm -f /usr/share/logstash/config/logstash.yml
+RUN rm -f /usr/share/logstash/config/pipeslines.yml
 
 COPY pipeline/ /usr/share/logstash/pipeline/
 COPY config/ /usr/share/logstash/config/
