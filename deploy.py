@@ -28,12 +28,12 @@ services = {}
 used_ports = {}  # host_port -> collector name, to catch clashes
 args = {
     "environment_name": config.envName,
-    "appId": config.appId, 
-    "appSecret": config.appSecret, 
-    "tenantId": config.tenantId, 
-    "dce": config.dce, 
+    "appId": config.appId,
+    "appSecret": config.appSecret,
+    "tenantId": config.tenantId,
+    "dce": config.dce,
     "dcrId": config.dcrId,
-    "table": None,
+    "stream": None,
 }
 
 
@@ -43,7 +43,7 @@ def runcmd(cmd):  # Wrapper to make running commands quicker
 
 
 for collector in config.collectors:
-    args["table"] = None
+    args["stream"] = None
     if os.path.isdir(f"./{collector['name']}"):  # Confirm collector exists
         # Validate required fields (issue 5).
         if "port" not in collector or "proto" not in collector:
@@ -67,10 +67,10 @@ for collector in config.collectors:
             continue
         used_ports[collector["port"]] = collector["name"]
 
-        if "table" in collector:  # If custom table is defined for collector
-            args["table"] = collector["table"]
+        if "stream" in collector:  # If custom stream is defined for collector
+            args["stream"] = collector["stream"]
         else:
-            args["table"] = collector["name"]
+            args["stream"] = collector["stream"]
 
         if collector["proto"] == "tcp":
             ports = [f"{collector['port']}:514"]

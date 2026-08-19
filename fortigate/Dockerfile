@@ -6,7 +6,7 @@ ARG appSecret
 ARG tenantId 
 ARG dce 
 ARG dcrId 
-ARG table
+ARG stream
 
 RUN logstash-plugin install microsoft-sentinel-log-analytics-logstash-output-plugin
 
@@ -23,5 +23,5 @@ RUN sed -i "s|<appSecret>|${appSecret}|g" /usr/share/logstash/pipeline/sentinel.
 RUN sed -i "s|<tenantId>|${tenantId}|g" /usr/share/logstash/pipeline/sentinel.conf 
 RUN sed -i "s|<dce>|${dce}|g" /usr/share/logstash/pipeline/sentinel.conf 
 RUN sed -i "s|<dcrId>|${dcrId}|g" /usr/share/logstash/pipeline/sentinel.conf 
-RUN sed -i "s|<table>|${table}|g" /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<stream>|${stream}|g" /usr/share/logstash/pipeline/sentinel.conf 
 
