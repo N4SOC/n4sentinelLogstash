@@ -32,7 +32,6 @@ args = {
     "appSecret": config.appSecret,
     "tenantId": config.tenantId,
     "dce": config.dce,
-    "dcrId": config.dcrId,
     "stream": None,
 }
 
@@ -66,11 +65,8 @@ for collector in config.collectors:
             )
             continue
         used_ports[collector["port"]] = collector["name"]
-
-        if "stream" in collector:  # If custom stream is defined for collector
-            args["stream"] = collector["stream"]
-        else:
-            args["stream"] = collector["stream"]
+        args["stream"] = collector["stream"]
+        args["dcrId"] = collector["dcrId"]
 
         if collector["proto"] == "tcp":
             ports = [f"{collector['port']}:514"]
