@@ -93,6 +93,7 @@ yml = yaml.dump({"services": services})
 
 with open("docker-compose.yml", "w") as f:
     f.write(yml)
+print(f"Docker Compose Configuration built")
 
 if runcmd(["docker", "compose", "down", "--remove-orphans"]) == 0:
     print(f"Stopped existing containers")
