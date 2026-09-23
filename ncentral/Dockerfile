@@ -4,7 +4,7 @@ ARG environment_name
 ARG appId
 ARG appSecret
 ARG tenantId
-ARG DCE
+ARG dce
 ARG dcrId
 ARG stream
 
