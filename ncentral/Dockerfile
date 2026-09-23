@@ -2,13 +2,11 @@ FROM docker.elastic.co/logstash/logstash:9.5.1-amd64
 
 ARG environment_name
 ARG appId
-Arg appSecret
-Arg tenantId
+ARG appSecret
+ARG tenantId
 ARG DCE
 ARG dcrId
-ARG strean
-ARG workspaceID
-ARG workspaceKey
+ARG stream
 
 RUN logstash-plugin install microsoft-logstash-output-azure-loganalytics
 
