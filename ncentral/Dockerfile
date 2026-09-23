@@ -8,7 +8,7 @@ ARG dce
 ARG dcrId
 ARG stream
 
-RUN logstash-plugin install microsoft-logstash-output-azure-loganalytics
+RUN logstash-plugin install microsoft-sentinel-log-analytics-logstash-output-plugin
 
 RUN rm -f /usr/share/logstash/pipeline/*
 RUN rm -f /usr/share/logstash/config/logstash.yml
