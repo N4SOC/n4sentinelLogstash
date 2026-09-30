@@ -1,4 +1,4 @@
-FROM docker.elastic.co/logstash/logstash:7.17.3
+FROM docker.elastic.co/logstash/logstash:9.5.1-amd64
 
 ARG environment_name 
 ARG appId 
@@ -12,7 +12,7 @@ USER root
 
 # RUN dnf -y update
 
-RUN logstash-plugin install microsoft-logstash-output-azure-loganalytics
+RUN logstash-plugin install microsoft-sentinel-log-analytics-logstash-output-plugin
 # RUN logstash-plugin install logstash-output-syslog
 
 RUN rm -f /usr/share/logstash/pipeline/*
