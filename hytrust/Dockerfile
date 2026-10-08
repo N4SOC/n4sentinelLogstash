@@ -1,14 +1,18 @@
-FROM docker.elastic.co/logstash/logstash:7.17.3
+FROM docker.elastic.co/logstash/logstash:9.5.1-amd64
 
-ARG environment_name
-ARG workspaceID
-ARG workspaceKey
+ARG environment_name 
+ARG appId 
+ARG appSecret 
+ARG tenantId 
+ARG dce 
+ARG dcrId 
+ARG stream
 
 USER root
 
 # RUN dnf -y update
 
-RUN logstash-plugin install microsoft-logstash-output-azure-loganalytics
+RUN logstash-plugin install microsoft-sentinel-log-analytics-logstash-output-plugin
 # RUN logstash-plugin install logstash-output-syslog
 
 RUN rm -f /usr/share/logstash/pipeline/*
@@ -17,9 +21,12 @@ RUN rm -f /usr/share/logstash/config/*
 COPY pipeline/ /usr/share/logstash/pipeline/
 COPY config/ /usr/share/logstash/config/
 
-RUN sed -i "s|<environment_name>|${environment_name}|g"  /usr/share/logstash/pipeline/sentinel.conf 
-RUN sed -i "s|<workspaceID>|${workspaceID}|g"  /usr/share/logstash/pipeline/sentinel.conf 
-RUN sed -i "s|<workspaceKey>|${workspaceKey}|g"  /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<environment_name>|${environment_name}|g" /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<appId>|${appId}|g" /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<appSecret>|${appSecret}|g" /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<tenantId>|${tenantId}|g" /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<dce>|${dce}|g" /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<dcrId>|${dcrId}|g" /usr/share/logstash/pipeline/sentinel.conf 
+RUN sed -i "s|<stream>|${stream}|g" /usr/share/logstash/pipeline/sentinel.conf 
 
 EXPOSE 4514/tcp
-
