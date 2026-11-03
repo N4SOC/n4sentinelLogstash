@@ -1,4 +1,4 @@
-FROM docker.elastic.co/logstash/logstash:9.5.1-amd64
+FROM docker.elastic.co/logstash/logstash:9.5.6-amd64
 
 ARG environment_name 
 
