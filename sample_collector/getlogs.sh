@@ -1,0 +1,1 @@
+sudo docker compose cp sample_collector:/tmp/sampleFile*.json ./
